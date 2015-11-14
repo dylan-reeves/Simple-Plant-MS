@@ -1,11 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.views import generic
+
+from .models import site
 
 # Create your views here.
-def index(request):
-    return render("index page")
+class IndexView(generic.ListView):
+    template_name = 'sites/index.html'
+    context_object_name = 'site_list'
+    def get_queryset(self):
+        return site.objects.all()
 
-def details(request):
-    return render("details page")
+class DetailView(generic.DetailView):
+    model = site
+    template_name = 'sites/details.html'
 
 def create(request):
     return render("Create Page")
