@@ -3,7 +3,7 @@
 <body>
 <ul>
 {% for n in site_list %}
-  <li>{{ n.name }}</li>
+  <li><a href="/sites/{{ n.id }}">{{ n.name }}</a></li>
 {% endfor %}
 </ul>
 </body>

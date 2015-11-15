@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 from .forms import siteForm
 
@@ -18,18 +18,17 @@ class DetailView(generic.DetailView):
     template_name = 'sites/details.html'
     context_object_name = 'site_details'
 
-class CreateView(generic.View):
-    def get(self, request):
-        form = siteForm
-        return render(request, 'sites/create.html', {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-
+class CreateView(generic.CreateView):
+    model = site
+    template_name = 'sites/create.html'
+    fields = ['name', 'manager', 'reportGroup']
+    success_url = '/sites/'
 
 def update(request):
     return render("Update Page")
 
-class DeleteView(generic.View):
-    def get(self,request):
-        return render("Delete Page")
+class DeleteView(generic.DeleteView):
+    model = site
+    success_url = reverse_lazy('IndexView')
+    template_name = 'sites/delete.html'
+    context_object_name = 'site_details'
