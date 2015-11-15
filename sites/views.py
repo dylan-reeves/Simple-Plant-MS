@@ -22,16 +22,14 @@ class CreateView(generic.View):
     def get(self, request):
         form = siteForm
         return render(request, 'sites/create.html', {'form': form})
-    def post(self, request):
-        form = siteForm(request.POST)
-		if form.is_valid():
-			form.save()
-			return redirect('index')
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
 
 def update(request):
     return render("Update Page")
 
 class DeleteView(generic.View):
     def get(self,request):
-        
-    return render("Delete Page")
+        return render("Delete Page")

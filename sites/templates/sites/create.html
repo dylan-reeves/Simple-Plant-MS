@@ -1,5 +1,11 @@
+{% load staticfiles %}
 <html>
+<head>
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 <title>CREATEPAGE</title>
+</head>
 <body>
+  {% load crispy_forms_tags %}
+  {% crispy form %}
 </body>
 </html>

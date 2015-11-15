@@ -10,5 +10,5 @@ class siteForm(ModelForm):
 
     def __init__(self,*args, **kwargs):
         self.helper = FormHelper()
-		self.helper.add_input(Submit('submit','Submit'))
-		super(departmentForm, self).__init__(*args,**kwargs)
+        self.helper.add_input(Submit('submit','Submit'))
+        super(siteForm, self).__init__(*args, **kwargs)
