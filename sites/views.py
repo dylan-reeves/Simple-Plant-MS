@@ -6,27 +6,31 @@ from .forms import siteForm
 
 from .models import site
 
-# Create your views here.
+# Default landing page for sites app simply displays clickable list of sites
 class IndexView(generic.ListView):
     template_name = 'sites/index.html'
     context_object_name = 'site_list'
     def get_queryset(self):
         return site.objects.all()
 
+#Displays all the fields of a single site entry
 class DetailView(generic.DetailView):
     model = site
     template_name = 'sites/details.html'
     context_object_name = 'site_details'
 
+#Loads and handles the form to create a new site
 class CreateView(generic.CreateView):
     model = site
     template_name = 'sites/create.html'
     fields = ['name', 'manager', 'reportGroup']
     success_url = '/sites/'
 
+#TODO complete update form
 def update(request):
     return render("Update Page")
 
+#Displays the site delete confirmation page
 class DeleteView(generic.DeleteView):
     model = site
     success_url = reverse_lazy('IndexView')

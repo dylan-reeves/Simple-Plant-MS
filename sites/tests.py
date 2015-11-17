@@ -9,13 +9,16 @@ from django.contrib.auth.models import Group
 
 # Create your tests here.
 #Check create form is loaded /sites/create/ -- create template
+# Test the site model
+class
+
 class urlTestCreate(unittest.TestCase):
     def setUp(self):
         self.client = Client()
 
     def test_details(self):
         #get the response for the create template
-        
+
 #Test the url patterns for the /sites/ index template
 class urlTestIndex(unittest.TestCase):
     def setUp(self):
