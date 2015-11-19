@@ -1,9 +1,6 @@
-<html>
-<title>DELETEPAGE</title>
-<body>
+{% block content %}
   <form action="" method="POST">{% csrf_token %}
     <p>Are you sure you want to delete "{{ site_details.name }}"?</p>
     <input type="submit" value="Confirm" /><a href="/sites/">No</a>
   </form>
-</body>
-</html>
+{% endblock %}

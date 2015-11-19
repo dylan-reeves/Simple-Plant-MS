@@ -1,6 +1,6 @@
 ##Current Iteration #1 01/11/2015 - ?
 TODO list
-  - [ ] Complete CRUD Functionality for sites app
+  - [x] Complete CRUD Functionality for sites app
   - [ ] Complete Sites apps unit test for 100% code coverage
   - [ ] Update functional test to test all of the site CRUD functionality
   - [ ] Write the section of the functional test for testing the CRUD functionality for departments

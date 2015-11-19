@@ -1,14 +1,8 @@
-{% load staticfiles %}
-<html>
-<head>
-  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-<title>CREATEPAGE</title>
-</head>
+{% block content %}
 <body>
   {% load crispy_forms_tags %}
   <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Create" />
   </form>
-</body>
-</html>
+{% endblock %}

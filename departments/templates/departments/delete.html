@@ -1,5 +1,6 @@
 {% block content %}
-<div>
-  Some Content delete
-</div>
+<form action="" method="POST">{% csrf_token %}
+  <p>Are you sure you want to delete "{{ department_details.name }}"?</p>
+  <input type="submit" value="Confirm" /><a href="/sites/">No</a>
+</form>
 {% endblock %}

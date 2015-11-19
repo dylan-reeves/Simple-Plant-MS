@@ -6,7 +6,7 @@ from django.views import generic
 from .forms import siteForm
 
 from .models import site
-
+#=========================SITE VIEWS=========================================
 # Default landing page for sites app simply displays clickable list of sites
 class IndexView(generic.ListView):
     template_name = 'sites/index.html'
@@ -27,7 +27,7 @@ class CreateView(generic.CreateView):
     fields = ['name', 'manager', 'reportGroup']
     success_url = '/sites/'
 
-#TODO complete update form
+#loads and handles update of sites
 class UpdateView(generic.UpdateView):
     model = site
     fields = ['name', 'manager', 'reportGroup']

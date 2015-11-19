@@ -1,0 +1,31 @@
+{% block content %}
+<select id='ddSite'>
+  {% for site_name in all_sites %}
+    <option name='site' value='{{ site_name }}'>
+      {{ site_name}}
+    </option>
+  {% endfor %}
+</select>
+<table id='deptTable'>
+  <thead>
+    <th>Dept Name</th>
+    <th>Manager</th>
+    <th>Sites</th>
+  </thead>
+  <tbody>
+    {% for dept in deparment_list %}
+      <tr>
+        <td><a href="/departments/{{ department.id }}"{{ dept.name }}</a></td>
+        <td>{{ dept.manager }}</td>
+        <td class='{% for site in dept.sites %}
+                      {{ site.name }}
+                    {% endfor %}'>
+          {% for site in dept.sites %}
+            {{ site.name }}
+          {% endfor %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% block content %}

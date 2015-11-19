@@ -1,5 +1,12 @@
 {% block content %}
-<div>
-  Some Content details
+<div id='department-details'>
+  <p><h4>Department Name: {{ department_details.name }}</h4></p>
+  <p><h4>Department Manger: {{ department_details.manager }}
+  </h4></p>
+  <p><h4>Site/s:{% for site in dept.sites %}
+                  {{ site.name }}
+                {% endfor %}</h4></p>
+  <a href="/departments/{{ department_details.id }}/update/">Update</a>
+  <a href="/departments/{{ department_details.id }}/delete/">Delete</a>
 </div>
 {% endblock %}

@@ -1,9 +1,8 @@
-<html>
-<title>UPDATEPAGE</title>
-<body>
+{% block content %}
+<div>
   <form action='' method='POST'>{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="update"/>
   </form>
-</body>
-</html>
+</div>
+{% endbloack %}
