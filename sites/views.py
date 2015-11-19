@@ -1,6 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from .forms import siteForm
 

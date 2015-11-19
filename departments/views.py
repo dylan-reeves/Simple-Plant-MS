@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse. reverse_lazy
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 from .models import department
 
@@ -25,8 +25,11 @@ class CreateView(generic.CreateView):
     success_url = '/departments/'
 
 #TODO Complete Update Form
-def index(request):
-    return #To Complete
+class UpdateView(generic.UpdateView):
+    model = department
+    fields = ['name', 'manager', 'reportGroup']
+    template_name = 'departments/update.html'
+    success_url = '/departments/'
 
 #Displays the department delete confirmation page
 class DeleteView(generic.DeleteView):

@@ -2,12 +2,14 @@ import unittest
 
 from django.test import TestCase
 from django.test import Client
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, resolve
+from django.http import HttpRequest
 from .models import site
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from autofixture import AutoFixture
 from django.core.exceptions import ObjectDoesNotExist
+from .views import *
 
 # Create your tests here.
 #Check create form is loaded /sites/create/ -- create template
@@ -52,3 +54,10 @@ class TestSite(TestCase):
             except ObjectDoesNotExist:
                 recordExists = False
             self.assertTrue(recordExists)
+
+        #Test the index view for the sites app
+        def test_index_view(self):
+            request = HttpRequest()
+            response = self.client.get('/sites/')
+            self.assertTemplateUsed(response, 'sites/index.html')
+            self.assertEqual(len(response.context['site_details']),20)
