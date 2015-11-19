@@ -7,7 +7,7 @@ urlpatterns = [
     #example of url /simpleplantms/sites/20/
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='sites-details'),
     #example of url /simpleplantms/sites/34/update/
-    url(r'^(?P<site_id>[0-9]+)/update/$', views.update, name='sites-update'),
+    url(r'^(?P<pk>[0-9]+)/update/$', views.update, name='sites-update'),
     #example of url /simpleplantms/sites/34/delete/
     url(r'^(?P<pk>[0-9]+)/delete/$', views.DeleteView.as_view(), name='sites-delete'),
     #example of url /simpleplantms/sites/create/

@@ -27,8 +27,11 @@ class CreateView(generic.CreateView):
     success_url = '/sites/'
 
 #TODO complete update form
-def update(request):
-    return render("Update Page")
+class UpdateView(generic.UpdateView):
+    model = site
+    fields = ['name', 'manager', 'reportGroup']
+    template_name = 'sites/update.html'
+    success_url = '/sites/'
 
 #Displays the site delete confirmation page
 class DeleteView(generic.DeleteView):
