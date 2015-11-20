@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'equipment',
     'crispy_forms',
     'autofixture',
+    'profiles',
 )
 
 MIDDLEWARE_CLASSES = (

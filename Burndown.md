@@ -1,6 +1,6 @@
 ##Current Iteration #1 01/11/2015 - ?
 TODO list
-  - [ ] Create profile model to extend user
+  - [ ] Create profile app model to extend user
   - [x] Complete CRUD Functionality for sites app
   - [ ] Create manager in sites model to filter by user
   - [ ] Complete Sites apps unit test for 100% code coverage

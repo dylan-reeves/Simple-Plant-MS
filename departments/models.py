@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 from sites.models import site
 
 #Department Model Manger to filter department results
-class DepartmentUserFilter(models.Manager):
-    def get_queryset(self, user):
-        userSite = user.profile.site
-        return Super(DepartmentUserFilter,self).get_queryset().filter(sites = userSite)
+#class DepartmentUserFilter(models.Manager):
+    #def get_queryset(self, user):
+        #userSite = user.profile.site
+        #return Super(DepartmentUserFilter,self).get_queryset().filter(sites = userSite)
 
 #department model
 class department(AuthStampedModel,TimeStampedModel):
@@ -16,6 +16,6 @@ class department(AuthStampedModel,TimeStampedModel):
     manager = models.ForeignKey(User)
     sites = models.ManyToManyField(site)
 
-    for_user = DepartmentUserFilter()
+    #for_user = DepartmentUserFilter()
     def __str__(self):
         return self.name
