@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^sites/', include('sites.urls')),
     #this will send requests to the departments app example /simpleplantms/departments/
     url(r'^departments/', include('departments.urls')),
+    #this will send requests to the departments app example /simpleplantms/equipment/
+    url(r'^equipment/', include('equipment.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]

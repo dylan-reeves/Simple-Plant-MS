@@ -41,6 +41,6 @@ class UpdateView(generic.UpdateView):
 #Displays the department delete confirmation page
 class DeleteView(generic.DeleteView):
     model = department
-    success_url = reverse_lazy('IndexView')
+    success_url = '/departments/'
     template_name = 'departments/delete.html'
     context_object_name = 'department_details'
