@@ -1,5 +1,6 @@
 from selenium import webdriver
-from autofixture import AutoFixture
+from selenium.webdriver.common.keys import Keys
+#from autofixture import AutoFixture
 #from sites.models import site
 import unittest
 
@@ -9,6 +10,7 @@ import unittest
 class TestSiteApp(unittest.TestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
+        self.browser.maximize_window()
         #site.objects.all().delete()
 
     def tearDown(self):
@@ -19,7 +21,7 @@ class TestSiteApp(unittest.TestCase):
         self.browser.get('http://127.0.0.1:8000/sites/')
         self.assertIn('INDEXPAGE', self.browser.title)
         #Check that there are currently no site items displayed on the page
-        self.assertEqual(self.browser.li.count(),0)
+        
         self.fail('Finish the Test')
 
 if __name__ == '__main__':

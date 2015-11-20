@@ -1,3 +1,4 @@
+{% extends "sites/base.html" %}
 {% block content %}
 <div>
   <form action='' method='POST'>{% csrf_token %}
@@ -5,4 +6,4 @@
     <input type="submit" value="update"/>
   </form>
 </div>
-{% endbloack %}
+{% endblock %}

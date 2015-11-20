@@ -1,3 +1,4 @@
+{% extends "sites/base.html" %}
 {% block content %}
   <form action="" method="POST">{% csrf_token %}
     <p>Are you sure you want to delete "{{ site_details.name }}"?</p>

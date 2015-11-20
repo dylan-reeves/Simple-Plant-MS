@@ -37,6 +37,6 @@ class UpdateView(generic.UpdateView):
 #Displays the site delete confirmation page
 class DeleteView(generic.DeleteView):
     model = site
-    success_url = reverse_lazy('IndexView')
+    success_url = '/sites/'
     template_name = 'sites/delete.html'
     context_object_name = 'site_details'
