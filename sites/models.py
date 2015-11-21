@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 
 # Create your models here.
-class site(AuthStampedModel,TimeStampedModel):
+
+
+class site(AuthStampedModel, TimeStampedModel):
     name = models.CharField(max_length=100)
     manager = models.ForeignKey(User)
     reportGroup = models.ForeignKey(Group)

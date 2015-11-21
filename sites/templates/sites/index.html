@@ -1,9 +1,7 @@
-{% extends "sites/base.html" %}
-{% block content %}
+{% extends "sites/base.html" %} {% block content %}
 <ul id='sites-list'>
-{% for siteItem in site_list %}
+  {% for siteItem in site_list %}
   <li><a href="/sites/{{ siteItem.id }}">{{ siteItem.name }}</a></li>
-{% endfor %}
+  {% endfor %}
 </ul>
-<a href='/sites/create/'>Create Site</a>
-{% endblock %}
+<a href='/sites/create/'>Create Site</a> {% endblock %}

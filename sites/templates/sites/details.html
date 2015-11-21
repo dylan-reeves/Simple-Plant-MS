@@ -1,9 +1,13 @@
-{% extends "sites/base.html" %}
-{% block content %}
-  <p><h4>Site Name: {{ site_details.name }}</h4></p>
-  <p><h4>Site Manger: {{ site_details.manager }}
-  </h4></p>
-  <p><h4>Reporting Group: {{ site_details.reportGroup }}</h4></p>
-  <a href="/sites/{{ site_details.id }}/update/">Update</a>
-  <a href="/sites/{{ site_details.id }}/delete/">Delete</a>
-{% endblock %}
+{% extends "sites/base.html" %} {% block content %}
+<p>
+  <h4>Site Name: {{ site_details.name }}</h4>
+</p>
+<p>
+  <h4>Site Manger: {{ site_details.manager }}
+  </h4>
+</p>
+<p>
+  <h4>Reporting Group: {{ site_details.reportGroup }}</h4>
+</p>
+<a href="/sites/{{ site_details.id }}/update/">Update</a>
+<a href="/sites/{{ site_details.id }}/delete/">Delete</a> {% endblock %}
