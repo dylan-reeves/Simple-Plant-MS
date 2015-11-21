@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^departments/', include('departments.urls')),
     #this will send requests to the departments app example /simpleplantms/equipment/
     url(r'^equipment/', include('equipment.urls')),
+    #this will send requests to the auth app example /simpleplantms/accounts/
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
