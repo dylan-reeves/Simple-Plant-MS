@@ -30,15 +30,17 @@
   </head>
 
   <body>
-    <div>
-      <p class="bg-warning">{% if error = 'Incorrect User Details' %}Incorrect User Details{% endif %}</p>
-    </div>
+
 
     <div class="container">
       {% load crispy_forms_tags %}
       <form class="form-signin" method="POST" action="">{% csrf_token %}
+        <div class="form-signin">
+          <p class="bg-danger">{% if error = 'Incorrect User Details' %}Incorrect User Details{% endif %}</p>
+        </div>
         <h2 class="form-signin-heading">Please sign in</h2>
         {{ form|crispy }}
+        <input type="hidden" name="next" value="{{ next }}">
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign In"/>
       </form>
     </div> <!-- /container -->
