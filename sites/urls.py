@@ -1,9 +1,10 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
 from . import views
 
 urlpatterns = [
     # example of url /simpleplantms/sites/
-    url(r'^$', views.IndexView.as_view(), name='sites-index'),
+    url(r'^$', login_required(views.IndexView.as_view()), name='sites-index'),
     # example of url /simpleplantms/sites/20/
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(),
         name='sites-details'),
