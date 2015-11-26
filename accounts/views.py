@@ -1,11 +1,10 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.contrib.auth import views, authenticate, login
+from django.contrib.auth import views, authenticate, login, logout
 from django.conf import settings
 from .forms import loginForm
 
 # Create your views here.
 def login_view(request):
-    nexturl =""
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = loginForm(request.POST)
@@ -18,7 +17,7 @@ def login_view(request):
             if user.is_active:
                 login(request,user)
                 print('user has been logged in')
-                if request.POST.get('netx') == "":
+                if request.POST.get('next') == "":
                     print('didnt find next')
                     request.user = user
                     return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
@@ -37,7 +36,15 @@ def login_view(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        nexturl = request.GET['next']
+        nextstring = request.GET.get('next')
         form = loginForm()
-        return render(request, 'accounts/login.html', {'form': form,
-                                                        'next': nexturl})
+        if nextstring != "":
+            return render(request, 'accounts/login.html', {'form': form, 'next': nextstring})
+        else:
+            return render(request, '/accounts/login.html', {'form': form})
+
+
+#Log the user out
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/accounts/login/')

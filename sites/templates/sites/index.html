@@ -11,29 +11,46 @@
     <button type="submit" class="btn btn-success">Sign in</button>
   </form>
 {% endif %}
-{% if "superadmin" in perms %}
+{% for group in user.groups.all %}
+{% if group.name == 'superadmin' %}
 <ul class="nav navbar-nav">
-     <li><a href="#">Sites</a></li>
-     <li><a href="#">Departments</a></li>
-     <li><a href="#">Equipment</a></li>
-     <li><a href="#">Users/Groups</a></li>
+     <li><a href="/sites/">Sites</a></li>
+     <li><a href="/departments/">Departments</a></li>
+     <li><a href="/equipment/">Equipment</a></li>
+     <li><a href="/profiles/">Users/Groups</a></li>
 </ul>
 {% endif %}
-{% if "siteadmin" in perms %}
+{% if group.name == 'siteadmin' %}
 <ul class="nav navbar-nav">
-     <li><a href="#">Departments</a></li>
-     <li><a href="#">Equipment</a></li>
-     <li><a href="#">Users/Groups</a></li>
+     <li><a href="/departments/">Departments</a></li>
+     <li><a href="/equipment/">Equipment</a></li>
+     <li><a href="/profles/">Users/Groups</a></li>
 </ul>
 {% endif %}
-{% if "departmentmanager" in perms %}
+{% if group.name == 'departmentmanager' %}
 <ul class="nav navbar-nav">
-     <li><a href="#">Equipment</a></li>
-     <li><a href="#">Users/Groups</a></li>
+     <li><a href="/equipment/">Equipment</a></li>
+     <li><a href="/profiles/">Users/Groups</a></li>
 </ul>
 {% endif %}
-{% if "reporting" in perms %}
+{% if group.name == 'reporting' %}
+<ul class="nav navbar-nav">
+     <li><a href="#">Reports</a></li>
+</ul>
 {% endif %}
+{% endfor %}
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user }} <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="/profile/{{ user.id }}">Profile</a></li>
+      <li><a href="/accounts/{{ user.id }}/changepassword/">Change Password</a></li>
+      <li role="separator" class="divider"></li>
+      <li><a href="/accounts/logout/">Log Out</a></li>
+</ul>
+
+
+
 {% endblock %}
 
 

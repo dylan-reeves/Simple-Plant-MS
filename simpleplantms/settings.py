@@ -110,7 +110,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/sites/'
 
 STATIC_ROOT = os.path.join(BASE_DIR,'static_files')
 
