@@ -57,8 +57,8 @@
   <h4>Site Manger: {{ site_details.manager }}
   </h4>
 </p>
-<p>
+ <p>
   <h4>Reporting Group: {{ site_details.reportGroup }}</h4>
 </p>
-<a href="/sites/{{ site_details.id }}/update/">Update</a>
-<a href="/sites/{{ site_details.id }}/delete/">Delete</a> {% endblock %}
+<a href="/sites/{{ site_details.id }}/update/" class="btn btn-primary active" role="button">Update</a>
+<a href="/sites/{{ site_details.id }}/delete/" class="btn btn-warning ative" role="button">Delete</a> {% endblock %}

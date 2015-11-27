@@ -57,10 +57,20 @@
 
 
  {% block content %}
-<ul id='sites-list'>
-  {% for siteItem in site_list %}
-  <li><a href="/sites/{{ siteItem.id }}">{{ siteItem.name }}</a></li>
-  {% endfor %}
-</ul>
-{{ perm }}
-<a href='/sites/create/'>Create Site</a> {% endblock %}
+<table id="sitetable" class="table table-striped">
+  <thead>
+    <th>Site Name</th>
+    <th>Site Manager</th>
+  </thead>
+  <tbody>
+    {% for site in site_list %}
+    <tr>
+      <td><a href="/sites/{{ site.id }}/">{{ site.name }}</a></td>
+      <td>{{  site.manager }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+<a href="/sites/create/" class="btn btn-primary active" role="button">Create</a>
+{% endblock %}
