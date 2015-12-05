@@ -4,7 +4,7 @@
   {% load crispy_forms_tags %}
   <form action='' method='POST'>{% csrf_token %}
     {{ form | crispy }}
-    <input type="submit" value="update"/>
+    <input type="submit" value="Update" class="btn btn-primary active"/>
   </form>
 </div>
 {% endblock %}

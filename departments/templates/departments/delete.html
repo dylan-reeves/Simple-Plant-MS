@@ -1,7 +1,7 @@
-{% extends "departments/base.html" %} 
+{% extends "departments/base.html" %}
 {% block content %}
 <form action="" method="POST">{% csrf_token %}
   <p>Are you sure you want to delete "{{ department_details.name }}"?</p>
-  <input type="submit" value="Confirm" /><a href="/sites/">No</a>
+    <input type="submit" value="Confirm" class="btn btn-success active" />  <a class = 'btn btn-danger active' role="button" href="/departments/">No</a>
 </form>
 {% endblock %}

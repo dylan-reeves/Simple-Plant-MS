@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^login/', views.login_view , name='account-login'),
     # example of url /simpleplantms/accounts/logout/
     url(r'^logout/', views.logout_view, name='account-logout'),
+    url(r'^denied/', views.denied, name='account-logout'),
 ]
