@@ -17,6 +17,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    #home page
+    url(r'^$', 'home.views.index'),
     #this will send requests to the sites app example /simpleplantms/sites/
     url(r'^sites/', include('sites.urls')),
     #this will send requests to the departments app example /simpleplantms/departments/
