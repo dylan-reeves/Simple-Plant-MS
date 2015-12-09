@@ -15,10 +15,13 @@ from sites.models import site
 def is_in_multiple_groups(user):
     return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
 
+def is_in_multiple_groups_crud(user):
+    return user.groups.filter(name__in=['superadmin', 'siteadmin']).exists()
+
 
 class IndexView(generic.ListView):
     model = department
-    template_name = 'departments/index.html'
+    template_name = 'departments/index_admin.html'
     context_object_name = 'department_list'
 
     def get_context_data(self, **kwargs):
@@ -29,8 +32,12 @@ class IndexView(generic.ListView):
         return context
 
     @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
-    def dispatch(self, *args, **kwargs):
-        return super(IndexView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.groups.filter(name__in=['superadmin', 'siteadmin']).exists():
+            return super(IndexView, self).dispatch(request, *args, **kwargs)
+        if request.user.groups.filter(name__in=['departmentmanager']).exists():
+            self.template_name = 'departments/index_std.html'
+            return super(IndexView, self).dispatch(request, *args, **kwargs)
 
 # Displays all the fields of a single department entry
 
@@ -53,7 +60,7 @@ class CreateView(generic.CreateView):
     fields = ['name', 'manager', 'sites']
     success_url = '/departments/'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(CreateView, self).dispatch(*args, **kwargs)
 
@@ -66,7 +73,7 @@ class UpdateView(generic.UpdateView):
     template_name = 'departments/update.html'
     success_url = '/departments/'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(UpdateView, self).dispatch(*args, **kwargs)
 
@@ -79,6 +86,6 @@ class DeleteView(generic.DeleteView):
     template_name = 'departments/delete.html'
     context_object_name = 'department_details'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(DeleteView, self).dispatch(*args, **kwargs)

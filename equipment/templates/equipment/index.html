@@ -1,0 +1,19 @@
+{% extends "sites/base.html" %}
+ {% block content %}
+<table id="sitetable" class="table table-striped">
+  <thead>
+    <th>Site Name</th>
+    <th>Site Manager</th>
+  </thead>
+  <tbody>
+    {% for equip in equipment_list %}
+    <tr>
+      <td><a href="/equipment/{{ equipment.id }}/">{{ equipment.name }}</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+<a href="/equipment/create/" class="btn btn-primary active" role="button">Create</a>
+{% endblock %}

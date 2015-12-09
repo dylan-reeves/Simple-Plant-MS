@@ -18,7 +18,7 @@ TODO list
 - [ ] Create section of functional test to deal with authentication
 - [ ] Create unit test to check for changed behaviour with authentication
 - [X] Implement Django authentication
-- [ ] Decorate all view objects
+- [X] Decorate all view objects
 - [ ] Restrict output of Departments and Equipment views depending on login permissions
 - [ ] Connect up twitter bootstrap css and js and start working on visuals
 - [ ] Run all unit tests again and run functional test again sign off on iteration
