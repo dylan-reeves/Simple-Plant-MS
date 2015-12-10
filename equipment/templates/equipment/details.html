@@ -2,14 +2,25 @@
 
 {% block content %}
 <p>
-  <h4>Site Name: {{ site_details.name }}</h4>
+  <h4>Name: {{ equipment_details.name }}</h4>
 </p>
 <p>
-  <h4>Site Manger: {{ site_details.manager }}
-  </h4>
+  <h4>Code: {{ equipment_details.code }}</h4>
 </p>
  <p>
-  <h4>Reporting Group: {{ site_details.reportGroup }}</h4>
+  <h4>Site: {{ equipment_details.site }}</h4>
 </p>
-<a href="/sites/{{ site_details.id }}/update/" class="btn btn-primary active" role="button">Update</a>
-<a href="/sites/{{ site_details.id }}/delete/" class="btn btn-warning ative" role="button">Delete</a> {% endblock %}
+<p>
+  <h4>Department: {{ equipment_details.department }}</h4>
+</p>
+<p>
+  <h4>Next Maintenance Date: {{ equipment_details.nextmaintenancedate }}</h4>
+</p>
+<p>
+  <h4>Interval Type: {{ equipment_details.intervalType }}</h4>
+</p>
+<p>
+  <h4>Active: {{ equipment_details.active }}</h4>
+</p>
+<a href="/equipment/{{ equipment_details.id }}/update/" class="btn btn-primary active" role="button">Update</a>
+<a href="/equipment/{{ equipment_details.id }}/delete/" class="btn btn-warning ative" role="button">Delete</a> {% endblock %}

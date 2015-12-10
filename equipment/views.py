@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 
 from .models import equipment
+from .forms import CreateEquipmentForm
 
 
 # Create your views here.
@@ -26,16 +27,15 @@ class DetailView(generic.DetailView):
     context_object_name = 'equipment_details'
 
 #Loads and handles the form to create a new department
-class CreateView(generic.CreateView):
-    model = equipment
+class CreateView(generic.edit.FormView):
     template_name = 'equipment/create.html'
-    fields = ['name', 'manager', 'reportGroup']
+    form_class = CreateEquipmentForm
     success_url = '/equipment/'
 
 #Loads and handles the departments update
 class UpdateView(generic.UpdateView):
     model = equipment
-    fields = ['name', 'manager', 'reportGroup']
+    fields = ['name', 'code', 'site', 'department', 'nextmaintenancedate', 'intervalType', 'active']
     template_name = 'equipment/update.html'
     success_url = '/equipment/'
 
