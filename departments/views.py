@@ -18,12 +18,11 @@ def is_in_multiple_groups(user):
 def is_in_multiple_groups_crud(user):
     return user.groups.filter(name__in=['superadmin', 'siteadmin']).exists()
 
-
 class IndexView(generic.ListView):
-    model = department
+    #model = department
+
     template_name = 'departments/index_admin.html'
     context_object_name = 'department_list'
-
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(IndexView, self).get_context_data(**kwargs)
@@ -33,9 +32,17 @@ class IndexView(generic.ListView):
 
     @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, request, *args, **kwargs):
-        if request.user.groups.filter(name__in=['superadmin', 'siteadmin']).exists():
+        if request.user.groups.filter(name__in=['superadmin']).exists():
+            self.queryset = department.objects.all()
             return super(IndexView, self).dispatch(request, *args, **kwargs)
+
+        if request.user.groups.filter(name__in=['siteadmin']).exists():
+            site_list = 'DBS'
+            self.queryset = department.sites.name.filter(name__in=[site_list])
+            return super(IndexView, self).dispatch(request, *args, **kwargs)
+
         if request.user.groups.filter(name__in=['departmentmanager']).exists():
+            self.queryset = department.objects.filter(manager = request.user)
             self.template_name = 'departments/index_std.html'
             return super(IndexView, self).dispatch(request, *args, **kwargs)
 
