@@ -12,17 +12,21 @@ from sites.models import site
 # Default landing page for departments app simply displays a clickable
 # list of departments
 
+
 def is_in_multiple_groups(user):
     return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
 
+
 def is_in_multiple_groups_crud(user):
     return user.groups.filter(name__in=['superadmin', 'siteadmin']).exists()
+
 
 class IndexView(generic.ListView):
     #model = department
 
     template_name = 'departments/index_admin.html'
     context_object_name = 'department_list'
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(IndexView, self).get_context_data(**kwargs)
@@ -42,7 +46,7 @@ class IndexView(generic.ListView):
             return super(IndexView, self).dispatch(request, *args, **kwargs)
 
         if request.user.groups.filter(name__in=['departmentmanager']).exists():
-            self.queryset = department.objects.filter(manager = request.user)
+            self.queryset = department.objects.filter(manager=request.user)
             self.template_name = 'departments/index_std.html'
             return super(IndexView, self).dispatch(request, *args, **kwargs)
 
