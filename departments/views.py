@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.views import generic
 
 from .models import department
+from equipment.models import equipment
 from sites.models import site
 
 #=======================DEPARTMENTS VIEWS======================================
@@ -41,8 +42,7 @@ class IndexView(generic.ListView):
             return super(IndexView, self).dispatch(request, *args, **kwargs)
 
         if request.user.groups.filter(name__in=['siteadmin']).exists():
-            site_list = 'DBS'
-            self.queryset = department.sites.name.filter(name__in=[site_list])
+            self.queryset = department.objects.all()
             return super(IndexView, self).dispatch(request, *args, **kwargs)
 
         if request.user.groups.filter(name__in=['departmentmanager']).exists():
@@ -57,6 +57,14 @@ class DetailView(generic.DetailView):
     model = department
     template_name = 'departments/details.html'
     context_object_name = 'department_details'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        prik = self.kwargs['pk']
+        print(prik)
+        context['equipment_list'] = equipment.objects.filter(department=prik)
+        return context
+
 
     @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):

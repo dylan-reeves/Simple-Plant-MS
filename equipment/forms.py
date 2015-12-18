@@ -7,10 +7,3 @@ class CreateEquipmentForm(ModelForm):
     class Meta:
         model = equipment
         fields = ['name', 'code', 'site', 'department', 'nextmaintenancedate', 'intervalType', 'active']
-
-    def __init__(self, *args, **kwargs):
-        super(CreateEquipmentForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Field('nextmaintenancedate', id='checkthisworks', type='date',)
-        )

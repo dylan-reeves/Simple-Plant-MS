@@ -1,14 +1,14 @@
-{% extends "sites/base.html" %}
+{% extends "equipment/base.html" %}
  {% block content %}
 <table id="sitetable" class="table table-striped">
   <thead>
-    <th>Site Name</th>
-    <th>Site Manager</th>
+    <th>Equipment Name</th>
+
   </thead>
   <tbody>
-    {% for equip in equipment_list %}
+    {% for equip in equipment_details %}
     <tr>
-      <td><a href="/equipment/{{ equipment.id }}/">{{ equipment.name }}</a></td>
+      <td><a href="/equipment/{{ equip.id }}/">{{ equip.name }}</a></td>
 
     </tr>
     {% endfor %}

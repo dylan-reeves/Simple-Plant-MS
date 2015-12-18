@@ -3,22 +3,22 @@ TODO list
 - [x] Create profile app model to extend user
 - [ ] Create CRUD functionality for profiles
 - [x] Complete CRUD Functionality for sites app
-- [ ] Complete Sites apps unit test for 100% code coverage
-- [ ] Update functional test to test all of the site CRUD functionality
-- [ ] Write the section of the functional test for testing the CRUD functionality for departments
-- [ ] Create manager in departments model to filter
-- [ ] Complete Departments app unit test for 100% code coverage
+- [x] Complete Sites apps unit test for 100% code coverage
+- [x] Update functional test to test all of the site CRUD functionality
+- [x] Write the section of the functional test for testing the CRUD functionality for departments
+- [x] Create manager in departments model to filter
+- [x] Complete Departments app unit test for 100% code coverage
 - [X] Complete departments CRUD Functionality
 - [X] Create Javascript client departments filter by site
-- [ ] Write section of functional test to test CRUD functionality of equipment app
+- [x] Write section of functional test to test CRUD functionality of equipment app
 - [ ] Create manager in equipment model to filter results
-- [ ] Complete Equipment unit testing
-- [ ] Complete Equipment CRUD Functionality
+- [x] Complete Equipment unit testing
+- [x] Complete Equipment CRUD Functionality
 - [ ] Create Javascript client side view filters
-- [ ] Create section of functional test to deal with authentication
-- [ ] Create unit test to check for changed behaviour with authentication
+- [x] Create section of functional test to deal with authentication
+- [x] Create unit test to check for changed behaviour with authentication
 - [X] Implement Django authentication
 - [X] Decorate all view objects
 - [ ] Restrict output of Departments and Equipment views depending on login permissions
-- [ ] Connect up twitter bootstrap css and js and start working on visuals
+- [x] Connect up twitter bootstrap css and js and start working on visuals
 - [ ] Run all unit tests again and run functional test again sign off on iteration

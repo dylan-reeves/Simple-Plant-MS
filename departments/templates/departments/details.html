@@ -11,4 +11,18 @@
                 <a href="/departments/{{ department_details.id }}/delete/" class="btn btn-warning ative" role="button">Delete</a>
 </div>
 
+<div>
+  <table class="table table-striped">
+    <thead>
+    <th>Equipment</th>
+  </thead>
+  <tbody>
+    {% for eq in equipment_list %}
+      <tr>
+        <td>{{ eq.name }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+</div>
 {% endblock %}
