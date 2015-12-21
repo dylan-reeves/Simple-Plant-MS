@@ -3,6 +3,7 @@ from audit_log.models import AuthStampedModel
 from django_extensions.db.models import TimeStampedModel
 from sites.models import site
 from departments.models import department
+from mainttask.models import MaintenanceJob
 
 # Create your models here.
 class equipment(AuthStampedModel,TimeStampedModel):
@@ -12,6 +13,7 @@ class equipment(AuthStampedModel,TimeStampedModel):
     department = models.ForeignKey(department)
     #TODO add jobs foreign key
     #next maintenance date will be calculated when the maintenance jobs recorded
+    maintenancejobs = models.ManyToManyField(MaintenanceJob, null=True, blank=True)
     nextmaintenancedate = models.DateField('Next Maintenance')
     intervalType = models.CharField(max_length=50)
     active = models.BooleanField('Active', default=True)

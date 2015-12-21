@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'autofixture',
     'profiles',
     'accounts',
+    'mainttask',
 )
 
 MIDDLEWARE_CLASSES = (
