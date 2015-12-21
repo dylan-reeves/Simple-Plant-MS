@@ -5,10 +5,10 @@ from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import MaintenanceJob, MaintenanceTaskDetail
+from .models import MaintenanceJob, MaintenanceTaskDetailItems
 # Create your views here.
 def is_in_multiple_groups(user):
-    return return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
+    return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
 
 def is_in_multiple_groups_crud(user):
     return user.groups.filter(name__in=['superadmin', 'siteadmin']).exists()
@@ -44,3 +44,12 @@ class DeleteView(generic.DeleteView):
     template_name = 'mainttask/delete.html'
     context_object_name = 'maintjob_details'
     success_url = '/maintjobs/'
+
+class AddTaskView(generic.CreateView):
+    model = MaintenanceTaskDetailItems
+    template_name = 'mainttask/createtask.html'
+    fields = ['task']
+
+    def dispatch(self, *args, **kwargs):
+        self.model.maintjob = self.kwargs['pk']
+        self.success_url = '/mainttask/' + self.kwargs['pk']

@@ -1,0 +1,8 @@
+{% extends "mainttask/base.html" %}
+
+{% block content %}
+<p>
+  <h4>Name: {{ mainttask_details.name }}</h4>
+</p>
+<a href="/maintjobs/{{ mainttask_details.id }}/update/" class="btn btn-primary active" role="button">Update</a>
+<a href="/maintjobs/{{ mainttask_details.id }}/delete/" class="btn btn-warning ative" role="button">Delete</a> {% endblock %}

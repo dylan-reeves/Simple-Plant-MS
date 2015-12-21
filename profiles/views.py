@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 from django.views import generic
 
-from models import userProfile
+from . import models
 
 class IndexView(gene.ListView):
     model = userProfile
@@ -19,4 +19,3 @@ class DetailView(generic.DeleteView):
 
 class CreateView(generic.CreateView):
     model = userProfile
-    
