@@ -53,6 +53,10 @@ class AddTaskView(generic.CreateView):
     template_name = 'mainttask/createtask.html'
     fields = ['task']
     success_url = '/maintjobs/'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.
     #def dispatch(self, *args, **kwargs):
     #    self.model.maintjob = self.kwargs['pk']
     #    self.success_url = '/mainttask/' + self.kwargs['pk']
