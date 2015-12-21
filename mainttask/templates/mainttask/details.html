@@ -5,4 +5,21 @@
   <h4>Name: {{ mainttask_details.name }}</h4>
 </p>
 <a href="/maintjobs/{{ mainttask_details.id }}/update/" class="btn btn-primary active" role="button">Update</a>
-<a href="/maintjobs/{{ mainttask_details.id }}/delete/" class="btn btn-warning ative" role="button">Delete</a> {% endblock %}
+<a href="/maintjobs/{{ mainttask_details.id }}/delete/" class="btn btn-warning active" role="button">Delete</a>
+<div>
+  <table class="table table-striped">
+    <thead>
+    <th>Tasks</th>
+  </thead>
+  <tbody>
+    {% for tasks in task_list %}
+      <tr>
+        <td>{{ task.name }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+
+</div>
+<a href="/maintjobs/{{ mainttask_details.id }}/addtask/" class="btn btn-primary active" role="button">Add Tasks</a>
+ {% endblock %}

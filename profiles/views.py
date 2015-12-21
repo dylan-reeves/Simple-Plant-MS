@@ -7,15 +7,29 @@ from django.views import generic
 
 from . import models
 
-class IndexView(gene.ListView):
-    model = userProfile
+class IndexView(generic.ListView):
+    model = models.userProfile
     template_name = 'profiles/index.html'
     context_object_name = 'profile_list'
 
 class DetailView(generic.DeleteView):
-    model = userProfile
+    model = models.userProfile
     template_name = 'profiles/details.html'
     context_object_name = 'profile_details'
 
 class CreateView(generic.CreateView):
-    model = userProfile
+    model = models.userProfile
+    template_name = 'profiles/create.html'
+    context_object_name = 'profile_details'
+    success_url = '/profiles/'
+
+class UpdateView(generic.UpdateView):
+    model = models.userProfile
+    template_name = 'profiles/update.html'
+    context_object_name = 'profile_details'
+    success_url = '/profiles/'
+
+class DeleteView(generic.DeleteView):
+    model = models.userProfile
+    template_name = 'profiles/delete.html'
+    success_url = '/profiles/'

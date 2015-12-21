@@ -2,13 +2,13 @@
  {% block content %}
 <table id="sitetable" class="table table-striped">
   <thead>
-    <th>Equipment Name</th>
+    <th>Maintenance Jobs</th>
 
   </thead>
   <tbody>
     {% for mt in mainttask_details %}
     <tr>
-      <td><a href="/equipment/{{ mt.id }}/">{{ mt.name }}</a></td>
+      <td><a href="/maintjobs/{{ mt.id }}/">{{ mt.name }}</a></td>
 
     </tr>
     {% endfor %}

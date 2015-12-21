@@ -60,9 +60,9 @@ class DetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
-        prik = self.kwargs['pk']
-        print(prik)
-        context['equipment_list'] = equipment.objects.filter(department=prik)
+        prikey = self.kwargs['pk']
+        #print(prik)
+        context['equipment_list'] = equipment.objects.filter(department=prikey)
         return context
 
 

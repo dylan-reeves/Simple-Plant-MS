@@ -28,7 +28,7 @@ urlpatterns = [
     #this will send requests to the auth app example /simpleplantms/accounts/
     url(r'^accounts/', include('accounts.urls')),
     #This will send requests for profile info to the profiles app /simpleplantms/profiles/
-    #url(r'^profiles/', include('profiles.urls')),
+    url(r'^profiles/', include('profiles.urls')),
     #This will route requests about maintenance tasks to the app eg /simpleplantms/maintjobs/
     url(r'^maintjobs/', include('mainttask.urls')),
     url(r'^jet/', include('jet.urls','jet')),
