@@ -12,6 +12,7 @@ class MaintenanceJob(AuthStampedModel, TimeStampedModel):
         return self.name
 
 class MaintenanceTaskDetailItems(AuthStampedModel,TimeStampedModel):
+    orderfield = models.IntegerField()
     task = models.CharField(max_length=250)
     maintjob = models.ForeignKey(MaintenanceJob, null=True, blank=True)
     def __str__(self):

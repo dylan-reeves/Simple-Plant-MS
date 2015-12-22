@@ -27,7 +27,8 @@ class DetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
         prikey = self.kwargs['pk']
-        context['task_list'] = MaintenanceTaskDetailItems.objects.filter(maintjob=prikey)
+        context['task_list'] = MaintenanceTaskDetailItems.objects.filter(maintjob=prikey).order_by('orderfield')
+        print(context)
         return context
 
 class CreateView(generic.CreateView):
@@ -55,8 +56,13 @@ class AddTaskView(generic.CreateView):
     success_url = '/maintjobs/'
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.
+        task = form.save(commit=False)
+        job = MaintenanceJob.objects.get(pk = self.kwargs['pk'])
+        task.maintjob = job
+        record = MaintenanceTaskDetailItems.objects.filter(maintjob = self.kwargs['pk']).latest('orderfield')
+        ordernumber = record.orderfield + 1
+        task.orderfield = ordernumber
+        return super(AddTaskView, self).form_valid(form)
     #def dispatch(self, *args, **kwargs):
     #    self.model.maintjob = self.kwargs['pk']
     #    self.success_url = '/mainttask/' + self.kwargs['pk']
