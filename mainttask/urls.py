@@ -20,4 +20,10 @@ urlpatterns = [
     # example of url to add maintenance job - task /simpleplantms/maintjobs/5/addtask
     url(r'^(?P<pk>[0-9]+)/addtask/$',
         login_required(views.AddTaskView.as_view()), name='maintjobs-addtask'),
+    #exmaple of url to update maintennace job - task /simpleplantms/maintjobs/2/updatetask
+    url(r'^(?P<pk>[0-9]+)/updatetask/$',
+        login_required(views.UpdateTaskView.as_view()), name='maintjobs-updatetask'),
+    #exmaple of url to update maintennace job - task /simpleplantms/maintjobs/2/deletetask
+    url(r'^(?P<pk>[0-9]+)/deletetask/$',
+        login_required(views.DeleteTaskView.as_view()), name='maintjobs-deletetask'),
 ]

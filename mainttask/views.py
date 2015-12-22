@@ -40,7 +40,7 @@ class CreateView(generic.CreateView):
 class UpdateView(generic.UpdateView):
     model = MaintenanceJob
     fields = ['name', 'description']
-    template_name = 'mainttask/updtae.html'
+    template_name = 'mainttask/update.html'
     success_url = '/maintjobs/'
 
 class DeleteView(generic.DeleteView):
@@ -59,10 +59,26 @@ class AddTaskView(generic.CreateView):
         task = form.save(commit=False)
         job = MaintenanceJob.objects.get(pk = self.kwargs['pk'])
         task.maintjob = job
-        record = MaintenanceTaskDetailItems.objects.filter(maintjob = self.kwargs['pk']).latest('orderfield')
-        ordernumber = record.orderfield + 1
-        task.orderfield = ordernumber
+        if MaintenanceTaskDetailItems.objects.filter(maintjob = self.kwargs['pk']).exists():
+            record = MaintenanceTaskDetailItems.objects.filter(maintjob = self.kwargs['pk']).latest('orderfield')
+            ordernumber = record.orderfield + 1
+            task.orderfield = ordernumber
+        else:
+            task.orderfield = 1
         return super(AddTaskView, self).form_valid(form)
     #def dispatch(self, *args, **kwargs):
     #    self.model.maintjob = self.kwargs['pk']
     #    self.success_url = '/mainttask/' + self.kwargs['pk']
+
+class UpdateTaskView(generic.UpdateView):
+    model = MaintenanceTaskDetailItems
+    template_name = "mainttask/update.html"
+    fields = ['orderfield', 'task']
+    success_url = '/maintjobs/'
+
+
+class DeleteTaskView(generic.DeleteView):
+    model = MaintenanceTaskDetailItems
+    template_name = 'mainttask/deletetask.html'
+    context_object_name = 'maintjob_details'
+    success_url = '/maintjobs/'

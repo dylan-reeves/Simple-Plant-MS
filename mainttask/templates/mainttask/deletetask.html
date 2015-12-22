@@ -1,6 +1,6 @@
 {% extends "mainttask/base.html" %} {% block content %}
 <form action="" method="POST">{% csrf_token %}
-  <p>Are you sure you want to delete "{{ maintjob_details.name }}"?</p>
+  <p>Are you sure you want to delete "{{ maintjob_details.task }}"?</p>
   <input type="submit" value="Confirm" class="btn btn-success active" />  <a class = 'btn btn-danger active' role="button" href="/maintjobs/">No</a>
 </form>
 {% endblock %}
