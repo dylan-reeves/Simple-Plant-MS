@@ -22,3 +22,6 @@ TODO list
 - [ ] Restrict output of Departments and Equipment views depending on login permissions
 - [x] Connect up twitter bootstrap css and js and start working on visuals
 - [ ] Run all unit tests again and run functional test again sign off on iteration
+- [ ] Change Equipment Delete functionality to move to archive
+- [ ] Add filters to department view
+- [ ] Add filter to equipment views

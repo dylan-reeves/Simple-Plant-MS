@@ -13,9 +13,6 @@ class equipment(AuthStampedModel,TimeStampedModel):
     department = models.ForeignKey(department)
     #TODO add jobs foreign key
     #next maintenance date will be calculated when the maintenance jobs recorded
-    maintenancejobs = models.ManyToManyField(MaintenanceJob, null=True, blank=True)
-    nextmaintenancedate = models.DateField('Next Maintenance')
-    intervalType = models.CharField(max_length=50)
     active = models.BooleanField('Active', default=True)
     def __str__(self):
         return self.name

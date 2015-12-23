@@ -35,6 +35,10 @@ class DetailView(generic.DetailView):
     template_name = 'equipment/details.html'
     context_object_name = 'equipment_details'
 
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        prikey =
+
 #Loads and handles the form to create a new department
 class CreateView(generic.CreateView):
     model = equipment

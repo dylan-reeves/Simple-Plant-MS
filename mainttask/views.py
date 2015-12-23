@@ -28,7 +28,7 @@ class DetailView(generic.DetailView):
         context = super(DetailView, self).get_context_data(**kwargs)
         prikey = self.kwargs['pk']
         context['task_list'] = MaintenanceTaskDetailItems.objects.filter(maintjob=prikey).order_by('orderfield')
-        print(context)
+        #print(context)
         return context
 
 class CreateView(generic.CreateView):
