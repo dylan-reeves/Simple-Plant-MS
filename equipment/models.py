@@ -16,3 +16,10 @@ class equipment(AuthStampedModel,TimeStampedModel):
     active = models.BooleanField('Active', default=True)
     def __str__(self):
         return self.name
+
+class maintenanceschedule(AuthStampedModel, TimeStampedModel):
+    equipment = models.ForeignKey(equipment)
+    maintenancejob = models.ForeignKey(MaintenanceJob)
+    interval = models.IntegerField
+    previousdate = models.DateField(null=True)
+    nextdate = models.DateField

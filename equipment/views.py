@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import equipment
+from .models import equipment, maintenanceschedule
 
 
 
@@ -37,7 +37,9 @@ class DetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
-        prikey =
+        prikey = self.kwargs['pk']
+        context['schedule_list'] = maintenanceschedule.objects.filter(equipment = prikey)
+        return context
 
 #Loads and handles the form to create a new department
 class CreateView(generic.CreateView):
