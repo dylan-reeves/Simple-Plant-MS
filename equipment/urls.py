@@ -17,4 +17,13 @@ urlpatterns = [
     # example of url /simpleplantms/equipment/create/
     url(r'^create/', login_required(views.CreateView.as_view()),
         name='equipment-create'),
+    #example of url /simpleplantms/equipment/6/addschedule
+    url(r'^(?P<pk>[0-9]+)/addschedule/$',
+        login_required(views.AddScheduleView.as_view()), name='equipment-schedule-add'),
+    #example of url /simpleplantms/equipment/3/updateschedule
+    url(r'^(?P<pk>[0-9]+)/updateschedule/$',
+        login_required(views.UpdateScheduleView.as_view()), name='equipment-schedule-update'),
+    #example of url /simpleplantms/equipment/7/deleteschedule
+    url(r'^(?P<pk>[0-9]+)/deleteschedule/$',
+        login_required(views.DeleteScheduleView.as_view()), name='equipment-schedule-delete'),
 ]

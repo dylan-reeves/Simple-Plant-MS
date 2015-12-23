@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^profiles/', include('profiles.urls')),
     #This will route requests about maintenance tasks to the app eg /simpleplantms/maintjobs/
     url(r'^maintjobs/', include('mainttask.urls')),
+    #This will route requests about maintenance tasks to the app eg /simpleplantms/maintenance/
+    url(r'^maintenance/', include('maintenance.urls')),
     url(r'^jet/', include('jet.urls','jet')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls','jet-dashboard')),
     url(r'^admin/', include(admin.site.urls)),

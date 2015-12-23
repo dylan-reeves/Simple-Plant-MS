@@ -1,0 +1,22 @@
+{% extends "maintenance/base.html" %}
+ {% block content %}
+<table id="sitetable" class="table table-striped">
+  <h5>Upcoming maintenance</h5>
+  <thead>
+    <th>Equipment</th>
+    <th>Maintenance Job</th>
+    <th>Maintenance Date</th>
+  </thead>
+  <tbody>
+    {% for details in upcoming_maintenance %}
+    <tr>
+      <td>{{ details.equipment }}</td>
+      <td>{{ details.maintenancejob }}</td>
+      <td>{{ details.nextdate }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+
+{% endblock %}

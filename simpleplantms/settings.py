@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'profiles',
     'accounts',
     'mainttask',
+    'maintenance',
 )
 
 MIDDLEWARE_CLASSES = (

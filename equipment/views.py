@@ -45,7 +45,7 @@ class DetailView(generic.DetailView):
 class CreateView(generic.CreateView):
     model = equipment
     template_name = 'equipment/create.html'
-    fields = ['name', 'code', 'site', 'department', 'nextmaintenancedate', 'intervalType', 'active']
+    fields = ['name', 'code', 'site', 'department',  'active']
     success_url = '/equipment/'
 
     @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
@@ -54,7 +54,7 @@ class CreateView(generic.CreateView):
 #Loads and handles the departments update
 class UpdateView(generic.UpdateView):
     model = equipment
-    fields = ['name', 'code', 'site', 'department', 'nextmaintenancedate', 'intervalType', 'active']
+    fields = ['name', 'code', 'site', 'department',  'active']
     template_name = 'equipment/update.html'
     success_url = '/equipment/'
 
@@ -64,3 +64,27 @@ class DeleteView(generic.DeleteView):
     success_url = '/equipment/'
     template_name = 'equipment/delete.html'
     context_object_name = 'equipment_details'
+
+class AddScheduleView(generic.CreateView):
+    model = maintenanceschedule
+    template_name = 'equipment/addschedule.html'
+    fields = ['maintenancejob', 'interval', 'nextdate']
+    success_url = '/equipment/'
+
+    def form_valid(self, form):
+        schedule = form.save(commit=False)
+        equip = equipment.objects.get(pk=self.kwargs['pk'])
+        schedule.equipment = equip
+        return super(AddScheduleView, self).form_valid(form)
+
+class UpdateScheduleView(generic.UpdateView):
+    model = maintenanceschedule
+    template_name = 'equipment/update.html'
+    fields = ['maintenancejob', 'interval']
+    success_url = '/equipment/'
+
+class DeleteScheduleView(generic.DeleteView):
+    model = maintenanceschedule
+    template_name = 'equipment/deleteschedule.html'
+    context_object_name = 'schedule_details'
+    success_url = '/equipment/'

@@ -1,6 +1,7 @@
 from django.db import models
 from audit_log.models import AuthStampedModel
 from django_extensions.db.models import TimeStampedModel
+
 from sites.models import site
 from departments.models import department
 from mainttask.models import MaintenanceJob
@@ -20,6 +21,6 @@ class equipment(AuthStampedModel,TimeStampedModel):
 class maintenanceschedule(AuthStampedModel, TimeStampedModel):
     equipment = models.ForeignKey(equipment)
     maintenancejob = models.ForeignKey(MaintenanceJob)
-    interval = models.IntegerField
+    interval = models.IntegerField()
     previousdate = models.DateField(null=True)
-    nextdate = models.DateField
+    nextdate = models.DateField()
