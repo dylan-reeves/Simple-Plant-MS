@@ -11,3 +11,5 @@ class IndexView(generic.ListView):
     queryset = maintenanceschedule.objects.order_by('nextdate')[:5]
     template_name = 'maintenance/index.html'
     context_object_name = 'upcoming_maintenance'
+
+class

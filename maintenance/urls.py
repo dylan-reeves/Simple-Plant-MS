@@ -5,9 +5,9 @@ from . import views
 urlpatterns = [
     # example of url /simpleplantms/maintenance/
     url(r'^$', login_required(views.IndexView.as_view()), name='maintenance-index'),
-    # example of url /simpleplantms/equipment/20/
-    #url(r'^(?P<pk>[0-9]+)/$', login_required(views.DetailView.as_view()),
-    #    name='equipment-details'),
+    # example of url /simpleplantms/maintenance/20/execute
+    url(r'^(?P<pk>[0-9]+)/execute/$', login_required(views.ExecuteView.as_view()),
+        name='execute-maintenance'),
     # example of url /simpleplantms/equipment/34/update/
     #url(r'^(?P<pk>[0-9]+)/update/$',
     #    login_required(views.UpdateView.as_view()), name='equipment-update'),
