@@ -13,7 +13,7 @@
       <td>{{ details.equipment }}</td>
       <td>{{ details.maintenancejob }}</td>
       <td>{{ details.nextdate }}</td>
-      <td style="text-align:right"><a href="/maintenance/{{ details.id }}/execute/" class="btn btn-success active btn-sm" role="button"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></td>
+      <td style="text-align:right"><a href="/maintenance/{{ details.maintenancejob.id }}/execute/" class="btn btn-success active btn-sm" role="button"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></td>
 
     </tr>
     {% endfor %}
