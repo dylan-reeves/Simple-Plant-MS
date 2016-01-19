@@ -6,8 +6,9 @@ from mainttask.models import MaintenanceJob, MaintenanceTaskDetailItems
 
 class RecordForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        print(kwargs.pop('my_arg'))
-        tasks = MaintenanceTaskDetailItems.objects.filter(pk=kwargs.pop('my_arg')).order_by('orderfield')
+        pknumber = kwargs.pop('prikey')
+        super(RecordForm, self).__init__(*args, **kwargs)
+        tasks = MaintenanceTaskDetailItems.objects.filter(maintjob=pknumber).order_by('orderfield')
         Completed = 'OK'
         NotCompleted = 'NO'
         NotApplicable = 'NA'
@@ -16,8 +17,9 @@ class RecordForm(forms.Form):
             (NotCompleted, 'NO'),
             (NotApplicable, 'NA'),
             )
-        super(RecordForm, self).__init__(*args, **kwargs)
+
         itemnumber=1
+        print(tasks.count())
         for task in tasks:
             print(task.task)
             self.fields["completed_%d" % itemnumber] = forms.ChoiceField(choices=completed_choices, label=task.task)
