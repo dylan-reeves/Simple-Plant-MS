@@ -21,8 +21,6 @@ def ExecuteView(request, pk):
     maintjobrec = maintenanceschedule.objects.get(pk=pk)
     if request.method == 'POST':
         form = RecordForm(request.POST,prikey=maintjobrec.maintenancejob )
-        for key in request.POST:
-            print(request.POST[key])
         if form.is_valid():
             record = maintenancerecord(equipment=maintjobrec.equipment,
                                         maintjob=maintjobrec.maintenancejob,
@@ -30,6 +28,11 @@ def ExecuteView(request, pk):
                                         artisan='King Dyl',
                                         comments='I am getting really good at this')
             record.save()
+            for field in form:
+                maintrecorddetail = maintenancerecorddetails()
+                maintrecorddetail.maintenancerecord = record
+                maintrecorddetail.taskdetail = field.label
+                completed = request.POST
 
             return HttpResponseRedirect('/maintenance/')
     else:
