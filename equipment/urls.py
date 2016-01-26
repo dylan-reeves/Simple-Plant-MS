@@ -26,4 +26,10 @@ urlpatterns = [
     #example of url /simpleplantms/equipment/7/deleteschedule
     url(r'^(?P<pk>[0-9]+)/deleteschedule/$',
         login_required(views.DeleteScheduleView.as_view()), name='equipment-schedule-delete'),
+    #example of url /simpleplantms/equipment/7/history
+    url(r'^(?P<pk>[0-9]+)/history/$',
+        login_required(views.MaintHistory.as_view()), name='equipment-maintenance-history'),
+    #example of url /simpleplantms/equipment/7/maintenancehistorydetails/
+    url(r'^(?P<pk>[0-9]+)/historydetails/$',
+        login_required(views.HistoryDetails.as_view()), name='equipment-maintenance-historydetails'),
 ]

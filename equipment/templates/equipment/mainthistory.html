@@ -1,0 +1,20 @@
+{% extends "equipment/base.html" %}
+ {% block content %}
+<table id="sitetable" class="table table-striped">
+  <thead>
+    <th>Equipment Maintenance History</th>
+    <th>Date Conducted</th>
+
+  </thead>
+  <tbody>
+    {% for history in mainthistory %}
+    <tr>
+      <td><a href="/equipment/{{ history.id }}/historydetails/">{{ history.maintjob.name }}</a></td>
+      <td>{{ history.maintenancedate }}</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endblock %}

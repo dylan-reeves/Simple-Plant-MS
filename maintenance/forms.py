@@ -19,9 +19,7 @@ class RecordForm(forms.Form):
             )
 
         itemnumber=1
-        print(tasks.count())
         for task in tasks:
-            print(task.task)
             self.fields["completed_%d" % itemnumber] = forms.ChoiceField(choices=completed_choices, label=task.task)
             self.fields["comment_%d" % itemnumber] = forms.CharField()
             itemnumber = itemnumber + 1

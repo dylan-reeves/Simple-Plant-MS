@@ -9,6 +9,7 @@
     {% for equip in equipment_details %}
     <tr>
       <td><a href="/equipment/{{ equip.id }}/">{{ equip.name }}</a></td>
+      <td style="text-align:right"><a href="/equipment/{{ equip.id }}/history/" class="btn btn-success active btn-sm" role="button"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></a>
 
     </tr>
     {% endfor %}

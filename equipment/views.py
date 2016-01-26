@@ -6,6 +6,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 
 from .models import equipment, maintenanceschedule
+from maintenance.models import maintenancerecord
+
 
 
 
@@ -88,3 +90,17 @@ class DeleteScheduleView(generic.DeleteView):
     template_name = 'equipment/deleteschedule.html'
     context_object_name = 'schedule_details'
     success_url = '/equipment/'
+
+class MaintHistory(generic.ListView):
+    template_name ='equipment/mainthistory.html'
+    context_object_name = 'mainthistory'
+    def dispatch(self, *args, **kwargs):
+        self.queryset = maintenancerecord.objects.filter(equipment=self.kwargs['pk'])
+        return super(MaintHistory, self).dispatch(*args, **kwargs)
+
+class HistoryDetails(generic.DetailView):
+    template_name='equipment/mainthistorydetails.html'
+    context_object_name = 'mainthistorydetails'
+    def dispatch(self, *args, **kwargs):
+        self.queryset = maintenancerecord.objects.filter(equipment=self.kwargs['pk'])
+        return super(MaintHistory, self).dispatch(*args, **kwargs)
