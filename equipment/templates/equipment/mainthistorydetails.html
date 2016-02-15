@@ -1,0 +1,28 @@
+{% extends "equipment/base.html" %}
+ {% block content %}
+<table id="sitetable" class="table table-striped">
+  <h3>{{ mainthistory.equipment.name }}</h3>
+  <h3>{{ mainthistory.maintjob.name }}</h3>
+  <h3>{{ mainthistory.maintenancedate }}</h3>
+  <h3>{{ mainthistory.artisan }}</h3>
+  <h3>{{ mainthistory.comments }}</h3>
+
+  <h2>Maintenance Tasks</h2>
+  <thead>
+    <th>Task Description</th>
+    <th>Completed</th>
+    <th>Comments</th>
+
+  </thead>
+  <tbody>
+    {% for detail in mainthistorydetails %}
+    <tr>
+      <td>{{ detail.taskdetail }}</td>
+      <td>{{ detail.completed }}</td>
+      <td>{{ detail.comment }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endblock %}

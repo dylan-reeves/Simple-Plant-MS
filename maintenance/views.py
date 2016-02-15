@@ -28,11 +28,26 @@ def ExecuteView(request, pk):
                                         artisan='King Dyl',
                                         comments='I am getting really good at this')
             record.save()
-            for field in form:
-                maintrecorddetail = maintenancerecorddetails()
-                maintrecorddetail.maintenancerecord = record
-                maintrecorddetail.taskdetail = field.label
-                completed = request.POST
+            for key, value in request.POST.items():
+                ifcomment = key
+                if ifcomment.startswith("completed"):
+                    #the maintenance record for the foreign key
+                    detailrecord = record
+                    for field in form:
+                        if field.name == key:
+                            #Grab the label from the matching form to put in detail
+                            detailtaskdescription = field.label
+                    detailcompleted = value
+                    #get the number of the the item to get the corresponding comment
+                    itemnumber = key.split("_",1)[1]
+                    detailcomment = request.POST['comment_' + itemnumber]
+                    detailrecord = maintenancerecorddetails(maintenancerecord=detailrecord,
+                                                            taskdetail=detailtaskdescription,
+                                                            completed=detailcompleted,
+                                                            comment=detailcomment)
+                    detailrecord.save()
+
+
 
             return HttpResponseRedirect('/maintenance/')
     else:

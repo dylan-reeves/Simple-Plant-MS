@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 
 from .models import equipment, maintenanceschedule
-from maintenance.models import maintenancerecord
+from maintenance.models import maintenancerecord, maintenancerecorddetails
 
 
 
@@ -100,7 +100,13 @@ class MaintHistory(generic.ListView):
 
 class HistoryDetails(generic.DetailView):
     template_name='equipment/mainthistorydetails.html'
-    context_object_name = 'mainthistorydetails'
+    context_object_name = 'mainthistory'
+
+    def get_context_data(self,**kwargs):
+        context = super(HistoryDetails, self).get_context_data(**kwargs)
+        context['mainthistorydetails'] = maintenancerecorddetails.objects.filter(maintenancerecord=self.kwargs['pk'])
+        return context
+
     def dispatch(self, *args, **kwargs):
-        self.queryset = maintenancerecord.objects.filter(equipment=self.kwargs['pk'])
-        return super(MaintHistory, self).dispatch(*args, **kwargs)
+        self.queryset = maintenancerecord.objects.filter(pk=self.kwargs['pk'])
+        return super(HistoryDetails, self).dispatch(*args, **kwargs)
