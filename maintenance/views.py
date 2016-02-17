@@ -46,7 +46,11 @@ def ExecuteView(request, pk):
                                                             completed=detailcompleted,
                                                             comment=detailcomment)
                     detailrecord.save()
-
+            nextmaintenancedate = dt.date.today()
+            maintenanceinterval = maintjobrec.interval
+            maintjobrec.previousdate = nextmaintenancedate
+            maintjobrec.nextdate = nextmaintenancedate + dt.timedelta(days=maintenanceinterval)
+            maintjobrec.save()
 
 
             return HttpResponseRedirect('/maintenance/')

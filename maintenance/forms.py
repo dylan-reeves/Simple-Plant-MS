@@ -23,6 +23,18 @@ class RecordForm(forms.Form):
             self.fields["completed_%d" % itemnumber] = forms.ChoiceField(choices=completed_choices, label=task.task)
             self.fields["comment_%d" % itemnumber] = forms.CharField()
             itemnumber = itemnumber + 1
+        ArtisanChoice = (
+            (1, "Jan"),
+            (2, "Colin"),
+            (3, "SomeDude"),
+        )
+        RunningChoice = (
+            (1, "Running"),
+            (2, "Stopped"),
+        )
+        self.fields["artisan"] = forms.ChoiceField(choices=ArtisanChoice)
+        self.fields["running"] = forms.ChoiceField(choices=RunningChoice)
+        self.fields["generalcomments"] = forms.CharField()
 
     def printsuccess(self):
         print('happiness')

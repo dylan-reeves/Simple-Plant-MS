@@ -1,6 +1,6 @@
 
 //Code to filter tables
-var $rows = $('#depttable tr');
+var $rows = $('#texttable tr');
 $('#search').keyup(function() {
 
     var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
