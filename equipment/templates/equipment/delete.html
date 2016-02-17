@@ -1,4 +1,4 @@
-{% extends "sites/base.html" %} {% block content %}
+{% extends "./home/base.html" %} {% block content %}
 <form action="" method="POST">{% csrf_token %}
   <p>Are you sure you want to delete "{{ equipment_details.name }}"?</p>
   <input type="submit" value="Confirm" class="btn btn-success active" />  <a class = 'btn btn-danger active' role="button" href="/sites/">No</a>
