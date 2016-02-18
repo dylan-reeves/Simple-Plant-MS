@@ -6,6 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 
 from .models import MaintenanceJob, MaintenanceTaskDetailItems
+from .forms import CopyForm
 # Create your views here.
 def is_in_multiple_groups(user):
     return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
@@ -82,3 +83,22 @@ class DeleteTaskView(generic.DeleteView):
     template_name = 'mainttask/deletetask.html'
     context_object_name = 'maintjob_details'
     success_url = '/maintjobs/'
+
+def CopyView(request,pk):
+    sourcemaintjob = MaintenanceJob.objects.get(pk=pk)
+    if request.method =='POST':
+        form = CopyForm(request.POST)
+        if form.is_valid():
+            newmaintjob = MaintenanceJob(name=request.POST.get('name'),
+            description=request.POST.get('description'))
+            newmaintjob.save()
+
+            sourcemainttasks = MaintenanceTaskDetailItems.objects.filter(maintjob=sourcemaintjob)
+            for task in sourcemainttasks:
+                print(task)
+        return HttpResponseRedirect('/maintjobs/')
+
+    else:
+        form = CopyForm()
+
+    return render(request, 'mainttask/copy.html', {'form': form, 'job': sourcemaintjob})

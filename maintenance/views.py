@@ -23,7 +23,6 @@ def ExecuteView(request, pk):
     if request.method == 'POST':
         form = RecordForm(request.POST,prikey=maintjobrec.maintenancejob, equipid=maintjobrec.equipment.id )
         if form.is_valid():
-            print(form)
             record = maintenancerecord(equipment=maintjobrec.equipment,
                                         maintjob=maintjobrec.maintenancejob,
                                         maintenancedate=dt.date.today(),
