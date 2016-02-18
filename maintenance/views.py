@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import user_passes_test
 from equipment.models import equipment, maintenanceschedule
 from .forms import RecordForm
 from .models import maintenancerecord, maintenancerecorddetails
+from departments.models import artisan
 # Create your views here.
 class IndexView(generic.ListView):
     queryset = maintenanceschedule.objects.order_by('nextdate')[:5]
@@ -20,13 +21,17 @@ class IndexView(generic.ListView):
 def ExecuteView(request, pk):
     maintjobrec = maintenanceschedule.objects.get(pk=pk)
     if request.method == 'POST':
-        form = RecordForm(request.POST,prikey=maintjobrec.maintenancejob )
+        form = RecordForm(request.POST,prikey=maintjobrec.maintenancejob, equipid=maintjobrec.equipment.id )
         if form.is_valid():
+            print(form)
             record = maintenancerecord(equipment=maintjobrec.equipment,
                                         maintjob=maintjobrec.maintenancejob,
                                         maintenancedate=dt.date.today(),
-                                        artisan='King Dyl',
-                                        comments='I am getting really good at this')
+                                        artisan=artisan.objects.get(pk=form['artisan'].value),
+                                        running=request.POST.get('running'),
+                                        stopped=request.POST.get('stopped'),
+                                        notapplicable=request.POST.get('na'),
+                                        comments=request.POST.get('generalcomments'))
             record.save()
             for key, value in request.POST.items():
                 ifcomment = key
@@ -55,6 +60,6 @@ def ExecuteView(request, pk):
 
             return HttpResponseRedirect('/maintenance/')
     else:
-        form = RecordForm(prikey=maintjobrec.maintenancejob)
+        form = RecordForm(prikey=maintjobrec.maintenancejob,equipid=maintjobrec.equipment.id)
 
     return render(request, 'maintenance/execute.html', {'form': form})

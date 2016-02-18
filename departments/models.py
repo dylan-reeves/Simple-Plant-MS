@@ -15,3 +15,10 @@ class department(AuthStampedModel, TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+class artisan(AuthStampedModel, TimeStampedModel):
+    department = models.ForeignKey(department)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name

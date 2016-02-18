@@ -17,4 +17,10 @@ urlpatterns = [
     # example of url /simpleplantms/departments/create/
     url(r'^create/', login_required(views.CreateView.as_view()),
         name='departments-create'),
+    url(r'^(?P<pk>[0-9]+)/createartisan/$',
+        login_required(views.CreateArtisanView.as_view()), name='departments-create-artisan'),
+    url(r'^(?P<pk>[0-9]+)/deleteartisan/$',
+        login_required(views.DeleteArtisanView.as_view()), name='departments-delete-artisan'),
+    url(r'^(?P<pk>[0-9]+)/updateartisan/$',
+        login_required(views.UpdateArtisanView.as_view()), name='departments-update-artisan'),
 ]

@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 from django.views import generic
 
-from .models import department
+from .models import department, artisan
 from equipment.models import equipment
 from sites.models import site
 
@@ -63,6 +63,7 @@ class DetailView(generic.DetailView):
         prikey = self.kwargs['pk']
         #print(prik)
         context['equipment_list'] = equipment.objects.filter(department=prikey)
+        context['artisans'] = artisan.objects.filter(department=prikey)
         return context
 
 
@@ -108,3 +109,42 @@ class DeleteView(generic.DeleteView):
     @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(DeleteView, self).dispatch(*args, **kwargs)
+
+class CreateArtisanView(generic.CreateView):
+    model = artisan
+    template_name = 'departments/createartisan.html'
+    fields = ['name']
+
+    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    def dispatch(self, *args, **kwargs):
+        return super(CreateArtisanView, self).dispatch(*args, **kwargs)
+
+
+    def form_valid(self, form):
+        artisan = form.save(commit=False)
+        depart = department.objects.get(pk = self.kwargs['pk'])
+        artisan.department = depart
+        self.success_url = '/departments/' + self.kwargs['pk']
+        return super(CreateArtisanView, self).form_valid(form)
+
+class UpdateArtisanView(generic.UpdateView):
+    model = artisan
+    fields = ['name']
+    template_name = 'departments/updateartisan.html'
+
+    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    def dispatch(self, *args, **kwargs):
+        prikey = artisan.objects.get(pk=self.kwargs['pk'])
+        self.success_url = '/departments/' + str(prikey.department.id)
+        return super(UpdateArtisanView, self).dispatch(*args, **kwargs)
+
+class DeleteArtisanView(generic.DeleteView):
+    model = artisan
+    template_name = 'departments/deleteartisan.html'
+    context_object_name = 'artisan'
+
+    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    def dispatch(self, *args, **kwargs):
+        prikey = artisan.objects.get(pk=self.kwargs['pk'])
+        self.success_url = '/departments/' + str(prikey.department.id)
+        return super(DeleteArtisanView, self).dispatch(*args, **kwargs)
