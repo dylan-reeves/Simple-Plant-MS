@@ -1,0 +1,5 @@
+{% extends "./home/base.html" %} {% block content %}
+<h4>Would you like to add another task></h4>
+<a href="/maintjobs/{{ mainttask_details.id }}/addtask/" class="btn btn-primary active" role="button">Yes</a>
+<a href="/maintjobs/{{ mainttask_details.id }}" class="btn btn-warning active" role="button">No</a>
+{% endblock %}

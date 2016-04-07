@@ -29,4 +29,7 @@ urlpatterns = [
     #exmaple of url to update maintennace job - task /simpleplantms/maintjobs/2/deletetask
     url(r'^(?P<pk>[0-9]+)/deletetask/$',
         login_required(views.DeleteTaskView.as_view()), name='maintjobs-deletetask'),
+    #example of url to ask if want to add another task /simpleplantms/maintjobs/3/addanothertask
+    url(r'^(?P<pk>[0-9]+)/addanothertask/$',
+        login_required(views.AddAnotherTaskView.as_view()), name='maintjobs-addanothertask'),
 ]

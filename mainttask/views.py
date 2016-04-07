@@ -54,7 +54,7 @@ class AddTaskView(generic.CreateView):
     model = MaintenanceTaskDetailItems
     template_name = 'mainttask/createtask.html'
     fields = ['task']
-    success_url = '/maintjobs/'
+
 
     def form_valid(self, form):
         task = form.save(commit=False)
@@ -67,9 +67,14 @@ class AddTaskView(generic.CreateView):
         else:
             task.orderfield = 1
         return super(AddTaskView, self).form_valid(form)
-    #def dispatch(self, *args, **kwargs):
-    #    self.model.maintjob = self.kwargs['pk']
-    #    self.success_url = '/mainttask/' + self.kwargs['pk']
+
+    def get_success_url(self):
+        return  '/maintjobs/' + self.kwargs['pk'] + '/addanothertask/'
+
+class AddAnotherTaskView(generic.DetailView):
+    model = MaintenanceJob
+    template_name = 'mainttask/addanothertask.html'
+    context_object_name = 'mainttask_details'
 
 class UpdateTaskView(generic.UpdateView):
     model = MaintenanceTaskDetailItems
@@ -94,8 +99,12 @@ def CopyView(request,pk):
             newmaintjob.save()
 
             sourcemainttasks = MaintenanceTaskDetailItems.objects.filter(maintjob=sourcemaintjob)
+            taskorder = 1
             for task in sourcemainttasks:
-                print(task)
+                copymainttask = MaintenanceTaskDetailItems(orderfield=taskorder,
+                task=task.task,maintjob=newmaintjob)
+                copymainttask.save()
+                taskorder = taskorder + 1
         return HttpResponseRedirect('/maintjobs/')
 
     else:
