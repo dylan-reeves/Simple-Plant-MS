@@ -66,24 +66,16 @@
                <li><a href="/profiles/">Users/Groups</a></li>
           </ul>
           {% endif %}
-          {% if group.name == 'siteadmin' %}
+          {% if group.name == 'manager' %}
           <ul class="nav navbar-nav">
                <li><a href="/departments/">Departments</a></li>
                <li><a href="/equipment/">Equipment</a></li>
                <li><a href="/maintenance/">Maintenance</a></li>
-               <li><a href="/profles/">Users/Groups</a></li>
           </ul>
           {% endif %}
-          {% if group.name == 'departmentmanager' %}
+          {% if group.name == 'operator' %}
           <ul class="nav navbar-nav">
-               <li><a href="/equipment/">Equipment</a></li>
                <li><a href="/maintenance/">Maintenance</a></li>
-               <li><a href="/profiles/">Users/Groups</a></li>
-          </ul>
-          {% endif %}
-          {% if group.name == 'reporting' %}
-          <ul class="nav navbar-nav">
-               <li><a href="#">Reports</a></li>
           </ul>
           {% endif %}
           {% endfor %}
@@ -147,7 +139,7 @@
     <script src="/static/js/plantms.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="static/js/ie10-viewport-bug-workaround.js"></script>
-    
+
   </body>
 
 </html>

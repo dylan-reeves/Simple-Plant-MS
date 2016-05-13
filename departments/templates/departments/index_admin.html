@@ -26,6 +26,9 @@
     {% endfor %}
   </tbody>
 </table>
+{% for group in user.groups.all %}
+{% if group.name == 'superadmin' %}
 <a href="/departments/create/" class="btn btn-primary active" role="button">Create</a>
-
+{% endif %}
+{% endfor %}
 {% endblock %}

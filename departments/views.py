@@ -15,12 +15,7 @@ from sites.models import site
 
 
 def is_in_multiple_groups(user):
-    return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
-
-
-def is_in_multiple_groups_crud(user):
-    return user.groups.filter(name__in=['superadmin', 'siteadmin']).exists()
-
+    return user.groups.filter(name__in=['superadmin', 'manager']).exists()
 
 class IndexView(generic.ListView):
     #model = department
@@ -37,18 +32,10 @@ class IndexView(generic.ListView):
 
     @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, request, *args, **kwargs):
-        if request.user.groups.filter(name__in=['superadmin']).exists():
             self.queryset = department.objects.all()
             return super(IndexView, self).dispatch(request, *args, **kwargs)
 
-        if request.user.groups.filter(name__in=['siteadmin']).exists():
-            self.queryset = department.objects.all()
-            return super(IndexView, self).dispatch(request, *args, **kwargs)
 
-        if request.user.groups.filter(name__in=['departmentmanager']).exists():
-            self.queryset = department.objects.filter(manager=request.user)
-            self.template_name = 'departments/index_std.html'
-            return super(IndexView, self).dispatch(request, *args, **kwargs)
 
 # Displays all the fields of a single department entry
 
@@ -80,7 +67,7 @@ class CreateView(generic.CreateView):
     fields = ['name', 'manager', 'sites']
     success_url = '/departments/'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(CreateView, self).dispatch(*args, **kwargs)
 
@@ -93,7 +80,7 @@ class UpdateView(generic.UpdateView):
     template_name = 'departments/update.html'
     success_url = '/departments/'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(UpdateView, self).dispatch(*args, **kwargs)
 
@@ -106,7 +93,7 @@ class DeleteView(generic.DeleteView):
     template_name = 'departments/delete.html'
     context_object_name = 'department_details'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(DeleteView, self).dispatch(*args, **kwargs)
 
@@ -115,7 +102,7 @@ class CreateArtisanView(generic.CreateView):
     template_name = 'departments/createartisan.html'
     fields = ['name']
 
-    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(CreateArtisanView, self).dispatch(*args, **kwargs)
 
@@ -132,7 +119,7 @@ class UpdateArtisanView(generic.UpdateView):
     fields = ['name']
     template_name = 'departments/updateartisan.html'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         prikey = artisan.objects.get(pk=self.kwargs['pk'])
         self.success_url = '/departments/' + str(prikey.department.id)
@@ -143,7 +130,7 @@ class DeleteArtisanView(generic.DeleteView):
     template_name = 'departments/deleteartisan.html'
     context_object_name = 'artisan'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         prikey = artisan.objects.get(pk=self.kwargs['pk'])
         self.success_url = '/departments/' + str(prikey.department.id)

@@ -19,7 +19,7 @@ urlpatterns = [
         name='maintjobs-create'),
     # example of url /simpleplantms/maintjobs/34/copy/
     url(r'^(?P<pk>[0-9]+)/copy/$',
-        views.CopyView, name='maintjobs-copy'),
+        login_required(views.CopyView), name='maintjobs-copy'),
     # example of url to add maintenance job - task /simpleplantms/maintjobs/5/addtask
     url(r'^(?P<pk>[0-9]+)/addtask/$',
         login_required(views.AddTaskView.as_view()), name='maintjobs-addtask'),
