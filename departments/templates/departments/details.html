@@ -7,8 +7,12 @@
   <p><h4>Site/s:{% for site in dept.sites %}
                   {{ site.name }}
                 {% endfor %}</h4></p>
+                {% for group in user.groups.all %}
+                {% if group.name == 'superadmin' %}
                 <a href="/departments/{{ department_details.id }}/update/" class="btn btn-primary active" role="button">Update</a>
                 <a href="/departments/{{ department_details.id }}/delete/" class="btn btn-warning ative" role="button">Delete</a>
+                {% endif %}
+                {% endfor %}
 </div>
 
 <div>
