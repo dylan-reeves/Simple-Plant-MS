@@ -4,32 +4,54 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Q
 
 from .models import equipment, maintenanceschedule
 from maintenance.models import maintenancerecord, maintenancerecorddetails
 
+#========================EQUIPMENT VIEWS=======================================
+#Views that handle all the actions to do with the equipment in the system
 
-
+#The below method is to check that the user is a member of the superadmin or the
+#manager group in order to be able to add/update/remove equipment, does not
+#require a separate method for CRUD and both groups can perform all actions
 
 def is_in_multiple_groups(user):
-    return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
+    return user.groups.filter(name__in=['superadmin', 'manager']).exists()
 
+#=============================================================================
+#=========================GENERIC EQUIPMENT LIST VIEW=========================
+#=============================================================================
+#This view is the default landing page for the equipment view and will display
+#all equipment for the users department
 
-def is_in_multiple_groups_crud(user):
-    return user.groups.filter(name__in=['superadmin', 'siteadmin']).exists()
-
-# Create your views here.
-#=========================EQUIPMENT VIEWS=====================================
 class IndexView(generic.ListView):
     model = equipment
     template_name = 'equipment/index.html'
     context_object_name = 'equipment_details'
-    #def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        #context = super(IndexView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        #context['all_sites'] = site.objects.values_list('name', flat=True)
-        #return context
+
+    #Check to see if the user is logged in as superadmin or manager
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied'))
+    def dispatch(self, request, *args, **kwargs):
+        #populate the queryset from the equipment model and filter the response
+        #according to the department membership of the user
+
+        #get the departments the user is a member of
+        UserDepartments = request.user.usermain.departments.all()
+        #Assign the variable to hold the context object which will be created by
+        #the Q function
+        byDepartmentQuery = Q()
+        #Now loop through all the users departments and get the equipment
+        #assigned to that department and add it to the query object
+        for Department in UserDepartments:
+            byDepartmentQuery = byDepartmentQuery | Q(department=Department)
+        #populate the queryset according to the Department Query
+        self.queryset = equipment.objects.filter(byDepartmentQuery)
+        return super(IndexView, self).dispatch(request, *args, **kwargs)
+
+#==============================================================================
+#====================EQUIPMENT DETAILS VIEW====================================
+#==============================================================================
 
 #Displays all the fields of a single department entry
 class DetailView(generic.DetailView):
@@ -50,7 +72,7 @@ class CreateView(generic.CreateView):
     fields = ['name', 'code', 'site', 'department',  'active']
     success_url = '/equipment/'
 
-    @method_decorator(user_passes_test(is_in_multiple_groups_crud, login_url='/accounts/denied/'))
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
     def dispatch(self, *args, **kwargs):
         return super(CreateView, self).dispatch(*args, **kwargs)
 #Loads and handles the departments update
