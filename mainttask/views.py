@@ -8,23 +8,41 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import MaintenanceJob, MaintenanceTaskDetailItems
 from .forms import CopyForm
 # Create your views here.
-def is_in_multiple_groups(user):
-    return user.groups.filter(name__in=['superadmin', 'siteadmin', 'departmentmanager']).exists()
+# This method just check to see if the user is a member of the superadmin or
+# manager group as these are the only gourps that are allowed to view
+# maintenance jobs
 
-def is_in_multiple_groups_crud(user):
-    return user.groups.filter(name__in=['superadmin', 'siteadmin']).exists()
+def is_in_multiple_groups(user):
+    return user.groups.filter(name__in=['superadmin', 'manager']).exists()
+
+#==============================================================================
+#========================GENERIC MAINTENCE JOB VIEW============================
+#==============================================================================
+#this view displays a list of the setup maintennce jobs
 
 class IndexView(generic.ListView):
     model = MaintenanceJob
     template_name = 'mainttask/index.html'
     context_object_name = 'mainttask_details'
 
+    #check to see if the user is a member of the superadmin or manager groups
+    #and dispatch the view to the client
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
+    def dispatch(self, *args, **kwargs):
+        return super(IndexView, self).dispatch(*args, **kwargs)
+
+#==============================================================================
+#================DETAIL VIEW FOR MAINTENANCE JOB===============================
+#==============================================================================
+#This view shows the details of a selected maintenance job.
 
 class DetailView(generic.DetailView):
     model = MaintenanceJob
     template_name = 'mainttask/details.html'
     context_object_name = 'mainttask_details'
 
+    #Additional context object to hold all the maintenance tasks for the selected
+    #maintenance job
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
         prikey = self.kwargs['pk']
@@ -32,11 +50,28 @@ class DetailView(generic.DetailView):
         #print(context)
         return context
 
+    #Check to see if the logged on user is a member of superadmin or manager
+    #group and dispatch view to the client
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
+    def dispatch(self, *args, **kwargs):
+        return super(DetailView, self).dispatch(*args, **kwargs)
+
+#==============================================================================
+#=============CREATE VIEW FOR MAINTENANCE JOBS=================================
+#==============================================================================
+#This view enables the user to create a maintenance jobs
+
 class CreateView(generic.CreateView):
     model = MaintenanceJob
     template_name = 'mainttask/create.html'
     fields = ['name','description']
     success_url = '/maintjobs/'
+
+    #check to see if the user is a member of the superadmin or the managers
+    #group and then dispatch the view to the client
+    @method_decorator(user_passes_test(is_in_multiple_groups, login_url='/accounts/denied/'))
+    def dispatch(self, *args, **kwargs):
+
 
 class UpdateView(generic.UpdateView):
     model = MaintenanceJob

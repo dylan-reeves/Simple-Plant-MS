@@ -17,13 +17,11 @@ from sites.models import site
 # manager group as these are the only gourps that are allowed to view
 # departments
 
-
 def is_in_multiple_groups(user):
     return user.groups.filter(name__in=['superadmin', 'manager']).exists()
 
 # This mothod checks to see if the user is a memeber of the superadmin groups
 # as only the superadmin can create edit and delete departments
-
 
 def is_in_multiple_groups_CRUD(user):
     return user.groups.filter(name__in=['superadmin']).exists()
@@ -31,7 +29,7 @@ def is_in_multiple_groups_CRUD(user):
 #==============================================================================
 #==================GENERIC DEPARTMENT LIST VIEW================================
 #=============================================================================
-
+#this view displays a list of all the departments a user is a member of
 
 class IndexView(generic.ListView):
     #model = department
