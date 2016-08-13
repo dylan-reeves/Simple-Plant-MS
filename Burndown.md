@@ -1,7 +1,7 @@
 # Current Iteration #1 01/11/2015 - ?
 TODO list
 - [x] Create profile app model to extend user
-- [ ] Create CRUD functionality for profiles
+- [X] Create CRUD functionality for profiles
 - [x] Complete CRUD Functionality for sites app
 - [x] Complete Sites apps unit test for 100% code coverage
 - [x] Update functional test to test all of the site CRUD functionality
