@@ -1,8 +1,10 @@
 {% extends "./home/base.html" %}
+{% load maintenance_filter %}
  {% load humanize %}
  {% block content %}
 <table id="sitetable" class="table table-striped">
   <h5>Upcoming maintenance</h5>
+
   <thead>
     <th>Equipment</th>
     <th>Maintenance Job</th>
@@ -10,12 +12,28 @@
   </thead>
   <tbody>
     {% for details in upcoming_maintenance %}
+    {% if details.nextdate|get_range_colour_code == "danger" %}
     <tr class="danger">
       <td>{{ details.equipment }}</td>
       <td>{{ details.maintenancejob }}</td>
       <td>{{ details.nextdate }}</td>
       <td style="text-align:right"><a href="/maintenance/{{ details.id }}/execute/" class="btn btn-success active btn-sm" role="button"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></td>
     </tr>
+    {% elif details.nextdate|get_range_colour_code == "warning" %}
+    <tr class="warning">
+      <td>{{ details.equipment }}</td>
+      <td>{{ details.maintenancejob }}</td>
+      <td>{{ details.nextdate }}</td>
+      <td style="text-align:right"><a href="/maintenance/{{ details.id }}/execute/" class="btn btn-success active btn-sm" role="button"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></td>
+    </tr>
+    {% elif details.nextdate|get_range_colour_code == "success" %}
+    <tr class="success">
+      <td>{{ details.equipment }}</td>
+      <td>{{ details.maintenancejob }}</td>
+      <td>{{ details.nextdate }}</td>
+      <td style="text-align:right"><a href="/maintenance/{{ details.id }}/execute/" class="btn btn-success active btn-sm" role="button"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a></td>
+    </tr>
+    {% endif %}
     {% endfor %}
   </tbody>
 
